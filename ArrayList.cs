@@ -105,6 +105,26 @@ class ArrayList<T>
     {
         _array[--_index] = default;
 
+        Diminuir();
+    }
+
+    public void RemoveElement(int index)
+    {
+        if (index >= _index || index < 0)
+        {
+            Console.WriteLine("Index fora do alcance. Elemento não removido");
+            return;
+        }
+
+        CopyArray(_array, index+1, _array, index, (_index-1) - index);
+        _index--;
+
+        Diminuir();
+    }
+
+    // remove tamanho não utilizado
+    private void Diminuir()
+    {
         if (_tamanho - _index > 15)
         {
             //copia o array para um novo, temporario
@@ -116,6 +136,8 @@ class ArrayList<T>
 
             //copia de volta os elementos do array temporario
             CopyArray(tempArray, 0, _array, 0, _index);
+
+            Console.WriteLine("Diminuido");
         }
     }
 
@@ -170,7 +192,7 @@ class ArrayList<T>
         }
         return array;
     }
-    
+
 
     // loop que altera diretamente o array
     public void ForEach(Func<T, T> func)
@@ -236,7 +258,8 @@ class ArrayList<T>
 
 
     // função de cópia
-    public static void CopyArray(T[] oldArr, int initialIndex1, T[] newArr, int initialIndex2, int length) {
+    public static void CopyArray(T[] oldArr, int initialIndex1, T[] newArr, int initialIndex2, int length)
+    {
         Array.ConstrainedCopy(oldArr, initialIndex1, newArr, initialIndex2, length);
     }
 
