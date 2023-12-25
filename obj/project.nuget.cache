@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "DXPy5FNGAV5XRk00kGgwKW+MA3quNT2DVxcrE7ampbzTYVVmHB+3zczvNaCWXpKYOV4ftQZua0JxezpWuAC4FA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\MathHRM\\Documents\\vsCode\\GitHub\\ArrayList\\list.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\MathHRM\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.14\\microsoft.netcore.app.ref.7.0.14.nupkg.sha512",
+    "C:\\Users\\MathHRM\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.14\\microsoft.windowsdesktop.app.ref.7.0.14.nupkg.sha512",
+    "C:\\Users\\MathHRM\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.14\\microsoft.aspnetcore.app.ref.7.0.14.nupkg.sha512",
+    "C:\\Users\\MathHRM\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\7.0.14\\microsoft.netcore.app.host.win-x64.7.0.14.nupkg.sha512"
+  ],
+  "logs": []
+}
