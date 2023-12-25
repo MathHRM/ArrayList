@@ -31,16 +31,20 @@ class ArrayList<T>
     //cria um array a partir de outro
     public ArrayList(T[] array)
     {
-        _array = array;
+        _array = new T[array.Length];
         _tamanho = _array.Length;
         _index = _array.Length;
+
+        CopyArray(array, 0, _array, 0, _index);
     }
 
     public ArrayList(ArrayList<T> arrayList)
     {
-        _array = arrayList.GetArray();
+        _array = new T[arrayList.GetArray().Length];
         _tamanho = _array.Length;
         _index = _array.Length;
+
+        CopyArray(arrayList.GetArray(), 0, _array, 0, _index);
     }
 
 
@@ -88,7 +92,7 @@ class ArrayList<T>
         _array = new T[_tamanho];
 
         //copia de volta os elementos do array temporario
-        Array.ConstrainedCopy(tempArray, 0, _array, 0, _index);
+        CopyArray(tempArray, 0, _array, 0, _index);
 
         //adiciona o elemento no array
         _array[_index++] = element;
@@ -111,7 +115,7 @@ class ArrayList<T>
             _array = new T[_tamanho];
 
             //copia de volta os elementos do array temporario
-            Array.ConstrainedCopy(tempArray, 0, _array, 0, _index);
+            CopyArray(tempArray, 0, _array, 0, _index);
         }
     }
 
@@ -228,6 +232,13 @@ class ArrayList<T>
         }
         return array;
     } */
+
+
+
+    // função de cópia
+    public static void CopyArray(T[] oldArr, int initialIndex1, T[] newArr, int initialIndex2, int length) {
+        Array.ConstrainedCopy(oldArr, initialIndex1, newArr, initialIndex2, length);
+    }
 
 
 
