@@ -7,21 +7,25 @@ class Program
     {
         ArrayList<int> teste = new();
 
-        for (var i = 1; i < 31; i++)
-        {
-            teste.PushElement(i);
-        }
-
-        teste.Print();
-        Console.WriteLine($"Array Length: {teste.Length}");
-
-        Console.WriteLine();
         for (var i = 0; i < 20; i++)
         {
-            teste.RemoveElement(10);
+            teste.Push(i);
         }
-
         teste.Print();
-        Console.WriteLine($"Array Length: {teste.Length}");
+
+        for (var i = 0; i < teste.Length; i++)
+        {
+            teste.SetElement(i, i*2);
+        }
+        teste.Print();
+
+        teste.Take();
+        teste.Take();
+        teste.Pop();
+        teste.Take();
+        teste.Push(0);
+        teste.Add(0);
+        teste.Print();
+        Console.WriteLine(teste.Length);
     }
 }

@@ -73,8 +73,8 @@ class ArrayList<T>
 
 
 
-    // adiciona um elemento no ultimo index
-    public void PushElement(T element)
+    // adiciona um elemento no topo
+    public void Push(T element)
     {
         if (_index < _tamanho)
         {
@@ -96,23 +96,57 @@ class ArrayList<T>
         _array[_index++] = element;
     }
 
+    // adiciona um elemento no inicio
+    public void Add(T element)
+    {
+        if (_index < _tamanho)
+        {
+            CopyArray(_array, 0, _array, 1, ++_index);
+            _array[0] = element;
+            return;
+        }
+
+        //copia o array para um novo, temporario
+        T[] tempArray = GetArray();
+
+        //aumenta o tamanho do array
+        _tamanho += 10;
+        _array = new T[_tamanho];
+
+        //copia de volta os elementos do array temporario
+        CopyArray(tempArray, 0, _array, 0, _index);
+
+        //adiciona o elemento no array
+        CopyArray(_array, 0, _array, 1, ++_index);
+        _array[0] = element;
+    }
+
 
 
     // remove o ultimo elemento
-    public void RemoveElement()
+    public void Pop()
     {
         _array[--_index] = default;
 
         Diminuir();
     }
 
-    public void RemoveElement(int index)
+    // remove o primeiro elemento
+    public void Take()
+    {
+        CopyArray(_array, 1, _array, 0, --_index);
+        _array[_index] = default;
+
+        Diminuir();
+    }
+
+    public void Remove(int index)
     {
         if (index >= _index || index < 0)
             throw new ArgumentOutOfRangeException(
-                    nameof(RemoveElement), "Index fora do alcance");
+                    nameof(Remove), "Index fora do alcance");
 
-        CopyArray(_array, index+1, _array, index, (_index-1) - index);
+        CopyArray(_array, index + 1, _array, index, (_index - 1) - index);
         _array[--_index] = default;
 
         Diminuir();
@@ -171,7 +205,7 @@ class ArrayList<T>
         ArrayList<T> array = new();
         for (var i = 0; i < _index; i++)
         {
-            array.PushElement( func(_array[i]) );
+            array.Push(func(_array[i]));
         }
         return array;
     }
@@ -181,7 +215,7 @@ class ArrayList<T>
         ArrayList<T> array = new();
         for (var i = 0; i < _index; i++)
         {
-            array.PushElement( func(_array[i], i) );
+            array.Push(func(_array[i], i));
         }
         return array;
     }
@@ -205,7 +239,7 @@ class ArrayList<T>
         for (var i = 0; i < _index; i++)
         {
             if (func(_array[i]))
-                array.PushElement(_array[i]);
+                array.Push(_array[i]);
         }
         return array;
     }
