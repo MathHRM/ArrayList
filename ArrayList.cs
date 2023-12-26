@@ -230,9 +230,9 @@ class ArrayList<T>
 
 
     // loop com retorno
-    public ArrayList<T> Map(Func<T, T> func)
+    public ArrayList<E> Map<E>(Func<T, E> func)
     {
-        ArrayList<T> array = new();
+        ArrayList<E> array = new();
         for (var i = 0; i < _index; i++)
         {
             array.Push(func(_array[i]));
@@ -242,9 +242,9 @@ class ArrayList<T>
 
 
     // loop com retorno e acumulador
-    public ArrayList<T> Map(Func<T, int, T> func)
+    public ArrayList<E> Map<E>(Func<T, int, E> func)
     {
-        ArrayList<T> array = new();
+        ArrayList<E> array = new();
         for (var i = 0; i < _index; i++)
         {
             array.Push(func(_array[i], i));
