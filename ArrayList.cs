@@ -217,7 +217,7 @@ class ArrayList<T>
     {
         for (var i = 0; i < _index; i++)
         {
-            if (_array[i])
+            if (func(_array[i]))
                 break;
         }
     }
