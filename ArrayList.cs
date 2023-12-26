@@ -61,7 +61,7 @@ class ArrayList<T>
 
 
 
-    //adiciona um elemnto no index definido
+    //adiciona um elemento no index definido
     public void SetElement(int index, T element)
     {
         if (index >= _index || index < 0)
@@ -96,6 +96,8 @@ class ArrayList<T>
         _array[_index++] = element;
     }
 
+
+
     // adiciona um elemento no inicio
     public void Add(T element)
     {
@@ -128,8 +130,10 @@ class ArrayList<T>
     {
         _array[--_index] = default;
 
-        Diminuir();
+        Shrink();
     }
+
+
 
     // remove o primeiro elemento
     public void Take()
@@ -137,8 +141,10 @@ class ArrayList<T>
         CopyArray(_array, 1, _array, 0, --_index);
         _array[_index] = default;
 
-        Diminuir();
+        Shrink();
     }
+
+
 
     public void Remove(int index)
     {
@@ -149,11 +155,13 @@ class ArrayList<T>
         CopyArray(_array, index + 1, _array, index, (_index - 1) - index);
         _array[--_index] = default;
 
-        Diminuir();
+        Shrink();
     }
 
+
+
     // remove tamanho não utilizado
-    private void Diminuir()
+    private void Shrink()
     {
         if (_tamanho - _index > 15)
         {
@@ -183,7 +191,13 @@ class ArrayList<T>
 
 
 
-    // funcao de loop
+    /*
+     * 
+     * Funcções de loop
+     * 
+    */
+
+    // loop
     public void Map(Action<T> func)
     {
         for (var i = 0; i < _index; i++)
@@ -192,6 +206,8 @@ class ArrayList<T>
         }
     }
 
+
+    // loop com acumulador
     public void Map(Action<T, int> func)
     {
         for (var i = 0; i < _index; i++)
@@ -200,6 +216,8 @@ class ArrayList<T>
         }
     }
 
+
+    // loop com retorno
     public ArrayList<T> Map(Func<T, T> func)
     {
         ArrayList<T> array = new();
@@ -210,6 +228,8 @@ class ArrayList<T>
         return array;
     }
 
+
+    // loop com retorno e acumulador
     public ArrayList<T> Map(Func<T, int, T> func)
     {
         ArrayList<T> array = new();
@@ -231,8 +251,19 @@ class ArrayList<T>
     }
 
 
+    // loop com break, caso a funcao retorne true
+    public void Some(Func<T, bool> func)
+    {
+        for (var i = 0; i < _index; i++)
+        {
+            if (func(_array[i]))
+                break;
+        }
+    }
 
-    // funcao de filtro
+
+
+    // filtro
     public ArrayList<T> Filter(Func<T, bool> func)
     {
         ArrayList<T> array = new();
@@ -242,18 +273,6 @@ class ArrayList<T>
                 array.Push(_array[i]);
         }
         return array;
-    }
-
-
-
-    // funcao de loop com break, caso a funcao retorne true
-    public void Some(Func<T, bool> func)
-    {
-        for (var i = 0; i < _index; i++)
-        {
-            if (func(_array[i]))
-                break;
-        }
     }
 
 
@@ -268,7 +287,7 @@ class ArrayList<T>
 
 
 
-    // função de cópia
+    // cópia de array
     public static void CopyArray(T[] oldArr, int initialIndex1, T[] newArr, int initialIndex2, int length)
     {
         Array.ConstrainedCopy(oldArr, initialIndex1, newArr, initialIndex2, length);
