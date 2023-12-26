@@ -124,7 +124,7 @@ class ArrayList<T>
         if (_tamanho - _index > 15)
         {
             //copia o array para um novo, temporario
-            T[] tempArray = new int[_index];
+            T[] tempArray = new T[_index];
             CopyArray(_array, 0, tempArray, 0, _index);
 
             //diminui o tamanho do array
