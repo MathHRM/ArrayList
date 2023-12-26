@@ -154,7 +154,7 @@ class ArrayList<T>
     {
         for (var i = 0; i < _index; i++)
         {
-            func(GetElement(i));
+            func(_array[i]);
         }
     }
 
@@ -162,7 +162,7 @@ class ArrayList<T>
     {
         for (var i = 0; i < _index; i++)
         {
-            func(GetElement(i), i);
+            func(_array[i], i);
         }
     }
 
@@ -171,8 +171,7 @@ class ArrayList<T>
         ArrayList<T> array = new();
         for (var i = 0; i < _index; i++)
         {
-            var e = GetElement(i);
-            array.PushElement(func(e));
+            array.PushElement( func(_array[i]) );
         }
         return array;
     }
@@ -182,8 +181,7 @@ class ArrayList<T>
         ArrayList<T> array = new();
         for (var i = 0; i < _index; i++)
         {
-            var e = GetElement(i);
-            array.PushElement(func(e, i));
+            array.PushElement( func(_array[i], i) );
         }
         return array;
     }
@@ -206,9 +204,8 @@ class ArrayList<T>
         ArrayList<T> array = new();
         for (var i = 0; i < _index; i++)
         {
-            var e = GetElement(i);
-            if (func(e))
-                array.PushElement(e);
+            if (func(_array[i]))
+                array.PushElement(_array[i]);
         }
         return array;
     }
@@ -220,8 +217,7 @@ class ArrayList<T>
     {
         for (var i = 0; i < _index; i++)
         {
-            var e = GetElement(i);
-            if (func(e))
+            if (_array[i])
                 break;
         }
     }
@@ -232,7 +228,7 @@ class ArrayList<T>
     public T[] GetArray()
     {
         T[] tempArray = new T[_index];
-        Array.ConstrainedCopy(_array, 0, tempArray, 0, _index);
+        CopyArray(_array, 0, tempArray, 0, _index);
         return tempArray;
     }
 
