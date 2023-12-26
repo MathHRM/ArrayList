@@ -128,6 +128,12 @@ class ArrayList<T>
     // remove o ultimo elemento
     public void Pop()
     {
+        if(_index <= 0)
+        {
+            Console.WriteLine("Não há mais elementos");
+            _array[_index] = default;
+            return;
+        }
         _array[--_index] = default;
 
         Shrink();
@@ -138,6 +144,12 @@ class ArrayList<T>
     // remove o primeiro elemento
     public void Take()
     {
+        if(_index <= 0)
+        {
+            Console.WriteLine("Não há mais elementos");
+            _array[_index] = default;
+            return;
+        }
         CopyArray(_array, 1, _array, 0, --_index);
         _array[_index] = default;
 
@@ -298,6 +310,8 @@ class ArrayList<T>
     // transforma o array em string
     public string GetSring()
     {
+        if(_index == 0) return "Array vazio";
+
         string str = "";
         for (var i = 0; i < _index; i++)
         {
