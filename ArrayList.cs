@@ -65,10 +65,8 @@ class ArrayList<T>
     public void SetElement(int index, T element)
     {
         if (index >= _index || index < 0)
-        {
-            Console.WriteLine("Index fora do alcance. Elemento não adicionado");
-            return;
-        }
+            throw new ArgumentOutOfRangeException(
+                    nameof(GetElement), "Index fora do alcance");
 
         _array[index] = element;
     }
@@ -111,13 +109,11 @@ class ArrayList<T>
     public void RemoveElement(int index)
     {
         if (index >= _index || index < 0)
-        {
-            Console.WriteLine("Index fora do alcance. Elemento não removido");
-            return;
-        }
+            throw new ArgumentOutOfRangeException(
+                    nameof(RemoveElement), "Index fora do alcance");
 
         CopyArray(_array, index+1, _array, index, (_index-1) - index);
-        _index--;
+        _array[--_index] = default;
 
         Diminuir();
     }
@@ -128,7 +124,8 @@ class ArrayList<T>
         if (_tamanho - _index > 15)
         {
             //copia o array para um novo, temporario
-            T[] tempArray = GetArray();
+            T[] tempArray = new int[_index];
+            CopyArray(_array, 0, tempArray, 0, _index);
 
             //diminui o tamanho do array
             _tamanho -= 10;
@@ -136,8 +133,6 @@ class ArrayList<T>
 
             //copia de volta os elementos do array temporario
             CopyArray(tempArray, 0, _array, 0, _index);
-
-            Console.WriteLine("Diminuido");
         }
     }
 
@@ -220,7 +215,7 @@ class ArrayList<T>
 
 
 
-    // funcao de loop com break se funcao retornar true
+    // funcao de loop com break, caso a funcao retorne true
     public void Some(Func<T, bool> func)
     {
         for (var i = 0; i < _index; i++)
@@ -243,20 +238,6 @@ class ArrayList<T>
 
 
 
-    // funcao de organizar array
-    /* public ArrayList<T> Sort(Func<T, T> func)
-    {
-        ArrayList<T> array = new();
-        for (var i = 0; i < _index; i++)
-        {
-            var e = GetElement(i);
-            array.PushElement(func(e));
-        }
-        return array;
-    } */
-
-
-
     // função de cópia
     public static void CopyArray(T[] oldArr, int initialIndex1, T[] newArr, int initialIndex2, int length)
     {
@@ -265,7 +246,7 @@ class ArrayList<T>
 
 
 
-    // escreve o array
+    // transforma o array em string
     public string GetSring()
     {
         string str = "";
