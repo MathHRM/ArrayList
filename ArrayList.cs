@@ -8,6 +8,12 @@ class ArrayList<T>
         get { return _index; }
     }
 
+    public T this[int index]
+    {
+        get{ return GetElement(index); }
+        set { SetElement(index, value); }
+    }
+
 
     /*
      * 
@@ -50,7 +56,7 @@ class ArrayList<T>
 
 
     // retorna o elemento dado o index
-    public T GetElement(int index)
+    private T GetElement(int index)
     {
         if (index >= _index || index < 0)
             throw new ArgumentOutOfRangeException(
@@ -62,7 +68,7 @@ class ArrayList<T>
 
 
     //adiciona um elemento no index definido
-    public void SetElement(int index, T element)
+    private void SetElement(int index, T element)
     {
         if (index >= _index || index < 0)
             throw new ArgumentOutOfRangeException(
