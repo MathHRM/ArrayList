@@ -1,4 +1,5 @@
-class ArrayList<T>
+using System.Collections;
+class ArrayList<T> : IEnumerable
 {
     private T[] _array;
     private int _tamanho;
@@ -279,6 +280,16 @@ class ArrayList<T>
         }
     }
 
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+       return (IEnumerator<T>) GetEnumerator();
+    }
+
+    public ArrayListEnum<T> GetEnumerator()
+    {
+        return new ArrayListEnum<T>(GetArray());
+    }
+
 
 
     // filtro
@@ -331,5 +342,53 @@ class ArrayList<T>
     public void Print()
     {
         Console.WriteLine(GetSring());
+    }
+}
+
+
+
+
+
+public class ArrayListEnum<T> : IEnumerator
+{
+    public T[] array;
+    int position = -1;
+
+    public ArrayListEnum(T[] array) {
+        this.array = array;
+    }
+
+    public bool MoveNext()
+    {
+        position++;
+        return (position < array.Length);
+    }
+
+    public void Reset()
+    {
+        position = -1;
+    }
+
+    object IEnumerator.Current
+    {
+        get
+        {
+            return Current;
+        }
+    }
+
+    public T Current
+    {
+        get
+        {
+            try
+            {
+                return array[position];
+            }
+            catch (IndexOutOfRangeException)
+            {
+                throw new InvalidOperationException();
+            }
+        }
     }
 }
