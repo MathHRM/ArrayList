@@ -11,7 +11,7 @@ class ArrayList<T> : IEnumerable
 
     public T this[int index]
     {
-        get{ return GetElement(index); }
+        get { return GetElement(index); }
         set { SetElement(index, value); }
     }
 
@@ -135,7 +135,7 @@ class ArrayList<T> : IEnumerable
     // remove o ultimo elemento
     public void Pop()
     {
-        if(_index <= 0)
+        if (_index <= 0)
         {
             Console.WriteLine("Não há mais elementos");
             _array[_index] = default;
@@ -151,7 +151,7 @@ class ArrayList<T> : IEnumerable
     // remove o primeiro elemento
     public void Take()
     {
-        if(_index <= 0)
+        if (_index <= 0)
         {
             Console.WriteLine("Não há mais elementos");
             _array[_index] = default;
@@ -282,12 +282,60 @@ class ArrayList<T> : IEnumerable
 
     IEnumerator IEnumerable.GetEnumerator()
     {
-       return (IEnumerator<T>) GetEnumerator();
+        return (IEnumerator<T>)GetEnumerator();
     }
 
     public ArrayListEnum<T> GetEnumerator()
     {
         return new ArrayListEnum<T>(GetArray());
+    }
+
+
+
+    /*
+     *
+     *          Função Sort
+     * 
+     */
+
+    public void Sort(Comparison<T> comparador)
+    {
+        quickSort(_array, 0, _index - 1, comparador);
+    }
+
+    private void quickSort(T[] arr, int start, int end, Comparison<T> comparador)
+    {
+        if (start < end)
+        {
+            int index_pivo = particionar(arr, start, end, comparador);
+            quickSort(arr, start, index_pivo - 1, comparador);
+            quickSort(arr, index_pivo + 1, end, comparador);
+        }
+    }
+
+    private int particionar(T[] arr, int start, int end, Comparison<T> comparador)
+    {
+        T pivo = arr[start];
+        int i = start;
+
+        for (int j = start + 1; j <= end; j++)
+        {
+            if (comparador(arr[j], pivo) <= 0)
+            {
+                i += 1;
+                trocar(arr, i, j);
+            }
+        }
+
+        trocar(arr, start, i);
+        return i;
+    }
+
+    private void trocar(T[] arr, int iE, int iT)
+    {
+        T temp = arr[iT];
+        arr[iT] = arr[iE];
+        arr[iE] = temp;
     }
 
 
@@ -327,7 +375,7 @@ class ArrayList<T> : IEnumerable
     // transforma o array em string
     public string GetSring()
     {
-        if(_index == 0) return "Array vazio";
+        if (_index == 0) return "Array vazio";
 
         string str = "";
         for (var i = 0; i < _index; i++)
@@ -354,7 +402,8 @@ public class ArrayListEnum<T> : IEnumerator
     public T[] array;
     int position = -1;
 
-    public ArrayListEnum(T[] array) {
+    public ArrayListEnum(T[] array)
+    {
         this.array = array;
     }
 
