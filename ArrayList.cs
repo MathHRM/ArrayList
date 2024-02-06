@@ -105,33 +105,6 @@ class ArrayList<T> : IEnumerable
 
 
 
-    // adiciona um elemento no inicio
-    public void Add(T element)
-    {
-        if (_index < _tamanho)
-        {
-            CopyArray(_array, 0, _array, 1, ++_index);
-            _array[0] = element;
-            return;
-        }
-
-        //copia o array para um novo, temporario
-        T[] tempArray = GetArray();
-
-        //aumenta o tamanho do array
-        _tamanho += 10;
-        _array = new T[_tamanho];
-
-        //copia de volta os elementos do array temporario
-        CopyArray(tempArray, 0, _array, 0, _index);
-
-        //adiciona o elemento no array
-        CopyArray(_array, 0, _array, 1, ++_index);
-        _array[0] = element;
-    }
-
-
-
     // remove o ultimo elemento
     public void Pop()
     {
@@ -146,25 +119,7 @@ class ArrayList<T> : IEnumerable
         Shrink();
     }
 
-
-
-    // remove o primeiro elemento
-    public void Take()
-    {
-        if (_index <= 0)
-        {
-            Console.WriteLine("Não há mais elementos");
-            _array[_index] = default;
-            return;
-        }
-        CopyArray(_array, 1, _array, 0, --_index);
-        _array[_index] = default;
-
-        Shrink();
-    }
-
-
-
+    // remove um elemento pelo seu index
     public void Remove(int index)
     {
         if (index >= _index || index < 0)
@@ -331,11 +286,11 @@ class ArrayList<T> : IEnumerable
         return i;
     }
 
-    private void trocar(T[] arr, int iE, int iT)
+    private void trocar(T[] arr, int a, int b)
     {
-        T temp = arr[iT];
-        arr[iT] = arr[iE];
-        arr[iE] = temp;
+        T temp = arr[b];
+        arr[b] = arr[a];
+        arr[a] = temp;
     }
 
 
