@@ -1,1 +1,5 @@
-Program.cs
+./Program.cs
+list.csproj
+list.sln
+/obj
+/bin
